@@ -1,10 +1,6 @@
 const { FileService } = require('../services');
 const fs = require('fs')
-
-const {
-  serviceValidator,
-  loginSchemaValidator
-} = require('../validators');
+const addLog = require('../utils/winstonLogger')
 
 const getNumbers = async (str, arr) => {
   if(str.length > 1) {
@@ -42,7 +38,34 @@ class FileController {
       }
       const arrays = await getArrays(data, [])
 
-      const ordered = await FileService.OrderByAsc(arrays)
+      const ordered = await FileService.SortByAsc(arrays)
+
+      if(!ordered || !!ordered.isError) {
+        console.log(ordered)
+        return res.status(400).json({
+          message: ordered.response
+        })
+      }
+
+      addLog('ascending')
+      
+      return res.status(200).json({
+        message: 'Ordered succesfully',
+        ordered
+      })
+    })
+  }
+
+  static async sortByDes(req, res) {
+    fs.readFile('./public/assets/original.txt', 'utf8' , async (err, data) => {
+      if(err) {
+        return res.status(400).json({
+          message: error
+        })
+      }
+      const arrays = await getArrays(data, [])
+
+      const ordered = await FileService.SortByDes(arrays)
 
       if(!ordered || !!ordered.isError) {
         console.log(ordered)
@@ -51,19 +74,41 @@ class FileController {
         })
       }
       
+      addLog('descending')
+
       return res.status(200).json({
         message: 'Ordered succesfully',
         ordered
       })
     })
-    // const userSchema = req.body;
-    // const newUser = await AuthService.register(userSchema);
-    // console.log(newUser)
-    // if (!serviceValidator(newUser)) {
-    //   return res.status(400).json(newUser.response);
-    // }
-    // return res.status(201).json(newUser.response);
   }
+
+  static async sortByMix(req, res) {
+    fs.readFile('./public/assets/original.txt', 'utf8' , async (err, data) => {
+      if(err) {
+        return res.status(400).json({
+          message: error
+        })
+      }
+      const arrays = await getArrays(data, [])
+
+      const ordered = await FileService.SortByMix(arrays)
+
+      if(!ordered || !!ordered.isError) {
+        return res.status(400).json({
+          message: ordered.response
+        })
+      }
+
+      addLog('mixed')
+      
+      return res.status(200).json({
+        message: 'Ordered succesfully',
+        ordered
+      })
+    })
+  }
+
 }
 
 module.exports = FileController

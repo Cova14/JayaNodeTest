@@ -10,11 +10,8 @@ const opts = {
 };
 
 module.exports = passport => {
-  console.log(opts)
   passport.use(
     new JwtStrategy(opts, (payload, done) => {
-      console.log('payload')
-      console.log(payload)
       User
         .findById(payload.id)
         .then(user => {

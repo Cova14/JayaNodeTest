@@ -18,6 +18,8 @@
     "mongoose": "^5.9.4",
     "nodemon": "^2.0.2",
     "passport": "^0.4.1",
-    "passport-jwt": "^4.0.0"
+    "passport-jwt": "^4.0.0",
+    "public-ip": "^4.0.0",
+    "winston": "^3.2.1"
   }
 }
