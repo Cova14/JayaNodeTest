@@ -5,7 +5,6 @@ const {
   returnServiceSchema,
   hashPassword,
   JWTsign,
-  checkJWTToken,
   checkPassword
 } = require('../utils')
 
@@ -64,14 +63,6 @@ class AuthService {
   }
 
   static async login(loginSchema) {
-    console.log(loginSchema)
-    const isValid = await !!loginSchema.token ? checkJWTToken(loginSchema.token) : false
-    if (!!isValid) {
-      return returnServiceSchema(
-        { message: 'User already logged in' },
-        true
-      )
-    }
     const { email, password } = loginSchema
     try {
       const user = await UserRepository.getUserWithPassword(email)
@@ -112,9 +103,6 @@ class AuthService {
     }
   }
 
-  static getAll() {
-    return UserRepository.getAll();
-  };
 }
 
 module.exports = AuthService

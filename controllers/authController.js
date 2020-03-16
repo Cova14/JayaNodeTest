@@ -2,16 +2,17 @@ const { AuthService } = require('../services');
 
 const {
   serviceValidator,
-  loginSchemaValidator
+  loginSchemaValidator,
+  createUserValidator
 } = require('../validators');
 
 class AuthController {
   static async registerUser(req, res) {
     const userSchema = req.body;
-    const validatorResult = createUserSchemaValidator(userSchema)
+    const validatorResult = createUserValidator(userSchema)
     if (validatorResult.error) {
       return res.status(400).json({
-        message: Errors.InvalidRequestBody,
+        message: 'Invalid body',
         errors: validatorResult.errors
       })
     }
@@ -40,14 +41,6 @@ class AuthController {
     return res.status(200).json(loginResult.response);
   }
 
-  static async getUsers(req, res) {
-    try {
-      const users = await AuthService.getAll();
-      res.status(200).json(users);
-    } catch (error) {
-      res.status(400).json(error);
-    };
-  };
 }
 
 module.exports = AuthController

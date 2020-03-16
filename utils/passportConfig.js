@@ -1,6 +1,5 @@
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
-require('dotenv').config;
 const secret = process.env.JWT_SECRET || 'defaultSecret';
 const User = require('../models/User');
 

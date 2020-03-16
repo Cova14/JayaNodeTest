@@ -1,7 +1,5 @@
-const AuthRouter = require('./authRouter');
-const PrivateRouter = require('./PrivateRouter');
+const Router = require('./routes');
 
 module.exports = {
-  AuthRouter,
-  PrivateRouter
+  Router
 }

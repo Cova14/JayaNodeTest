@@ -41,7 +41,6 @@ class FileController {
       const ordered = await FileService.SortByAsc(arrays)
 
       if(!ordered || !!ordered.isError) {
-        console.log(ordered)
         return res.status(400).json({
           message: ordered.response
         })
@@ -68,7 +67,6 @@ class FileController {
       const ordered = await FileService.SortByDes(arrays)
 
       if(!ordered || !!ordered.isError) {
-        console.log(ordered)
         return res.status(400).json({
           message: ordered.response
         })
