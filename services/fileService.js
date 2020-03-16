@@ -23,7 +23,7 @@ class FileService {
 
       fs.writeFile('ordered.txt', newArr, 'utf8', (err) => {
         if (err) return returnServiceSchema(newArr, true)
-        console.log('The file has been saved!');
+        console.log('The file has been saved!!');
       });
 
       return returnServiceSchema(newArr)
