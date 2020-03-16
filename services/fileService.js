@@ -1,20 +1,19 @@
-const { UserRepository } = require('../repositories')
 const fs = require('fs')
 
 const {
   returnServiceSchema
 } = require('../utils')
 
-function sortNumberAsc(a, b) {
+const sortNumberAsc = (a, b) => {
   return a - b;
 }
 
-function sortNumberDes(a, b) {
+const sortNumberDes = (a, b) => {
   return b - a;
 }
 
-function writeFile(fileData) {
-  fs.writeFile('./public/assets/sorted.txt', fileData, 'utf8', (err) => {
+const writeFile = async (fileData) => {
+  await fs.writeFile('./public/assets/sorted.txt', fileData, 'utf8', async (err) => {
     if (err) return returnServiceSchema(err, true)
     console.log('The file has been saved!');
   });
@@ -35,7 +34,7 @@ class FileService {
       const txtArr = JSON.stringify(newArr)
       const fileData = txtArr.slice(1, (txtArr.length -1))
 
-      writeFile(fileData)
+      await writeFile(fileData)
 
       return returnServiceSchema(newArr)
     } catch (error) {
@@ -54,7 +53,7 @@ class FileService {
       const txtArr = JSON.stringify(newArr)
       const fileData = txtArr.slice(1, (txtArr.length -1))
 
-      writeFile(fileData)
+      await writeFile(fileData)
 
       return returnServiceSchema(newArr)
     } catch (error) {
@@ -77,17 +76,13 @@ class FileService {
       const txtArr = JSON.stringify(newArr)
       const fileData = txtArr.slice(1, (txtArr.length -1))
 
-      writeFile(fileData)
+      await writeFile(fileData)
 
       return returnServiceSchema(newArr)
     } catch (error) {
       return returnServiceSchema(error, true)
     }
   }
-
-  static getAll() {
-    return UserRepository.getAll();
-  };
 }
 
 module.exports = FileService

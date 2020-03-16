@@ -1,5 +1,6 @@
 const winston = require('winston');
 const publicIp = require('public-ip');
+const moment = require('moment');
 const logger = winston.createLogger({
     transports: [
         new winston.transports.Console(),
@@ -16,8 +17,9 @@ const addLog = async sortType => {
   });
 
   const ip = await publicIp.v4();
+  const now = moment().format("YYYY-MM-DD HH:mm:ss")
 
-  logger.info(`Ip: ${ip}, sort: ${sortType}`);
+  logger.info(`Ip: ${ip}, sort: ${sortType}, dateTime: ${now}`);
 }
 
 module.exports = addLog

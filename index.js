@@ -12,10 +12,13 @@ require('dotenv').config();
 require('./utils/database')();
 require('./utils/passportConfig')(passport);
 
-app.use('/assets', express.static(path.join(__dirname, './public/assets/')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
+app.use('/assets',
+  passport.authenticate('jwt', { session: false }),
+  express.static(path.join(__dirname, './public/assets/'))
+);
 app.use('/', Router);
 
 const server = http.createServer(app);
